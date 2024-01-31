@@ -9,12 +9,13 @@ const useMenu = () => {
          .then(data => {
            // const popularItems= data.filter ( item => item.category === 'popular' )
            // console.log(popularItems)
-            setMenu(popularItems)
+            setMenu(data)
             setLoading(false)
          }  )
-         return [menu,loading]
+         
     } ,[] )
+    return [menu,loading]
 }
 
 
-export default useMenu
+export default useMenu;
