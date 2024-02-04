@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 const Login = () => {
@@ -26,7 +27,26 @@ const Login = () => {
         .then(  result => {
             const user= result.user;
             console.log(user)
-            alert('login successfully completed')
+           // alert('login successfully completed')
+           
+           Swal.fire({
+            title: "login successfully completed ",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `
+            }
+          });
+
             event.target.reset()
         } )
 
