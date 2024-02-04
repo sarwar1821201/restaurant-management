@@ -26,6 +26,8 @@ const Login = () => {
         .then(  result => {
             const user= result.user;
             console.log(user)
+            alert('login successfully completed')
+            event.target.reset()
         } )
 
         .catch ( error => {
