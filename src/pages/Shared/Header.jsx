@@ -22,6 +22,7 @@ const Header = () => {
         <li> <Link to ='/secret' >Secret</Link>  </li>
 
 
+
   
   </>
 
@@ -48,7 +49,7 @@ const Header = () => {
   </div>
   <div className="navbar-end">
       {
-         user ?  <button onClick={handleLogOut} className="btn btn-ghost ">LogOut</button>  : <Link to='/login' className="btn">Login</Link> 
+         user ? <> <span> {user?.displayName} </span>   <button onClick={handleLogOut} className="btn btn-ghost ">LogOut</button>   </> : <Link to='/login' className="btn">Login</Link> 
       }
   </div>
 </div>

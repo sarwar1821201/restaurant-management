@@ -7,7 +7,7 @@ import { AuthContext } from '../../providers/AuthProvider';
 
 const Register = () => {
   
-   const {signUp} = useContext(AuthContext)
+   const {signUp, userUpdateProfile   } = useContext(AuthContext)
   const [error,setError] = useState('');
   const [success, setSuccess] = useState ('');
   const [show, setShow] = useState(false);
@@ -17,7 +17,8 @@ const Register = () => {
       const name= event.target.name.value;
       const email= event.target.email.value;
       const password= event.target.password.value;
-        console.log(name,email,password)
+       const photo = event.target.photo.value
+        console.log(name,email,password, photo)
 
        
         setError('')
@@ -34,7 +35,19 @@ const Register = () => {
         const loggedUser= result.user;
         console.log(loggedUser);
        // userProfileUpdate(name,photo);
-        alert('congratulations!! Registration Successfully Completed')
+      //  alert('congratulations!! Registration Successfully Completed')
+
+        userUpdateProfile(name,photo)
+        // .then( ()=> {
+        //     console.log('user profle info updated')
+        // } )
+
+        // .catch ( error => {
+        //     console.log(error)
+        // } )
+                alert('congratulations!! Registration Successfully Completed')
+
+
         setError('')
         event.target.reset()
 
@@ -75,11 +88,18 @@ const Register = () => {
     <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
       <form  onSubmit={handleSignUp}  className="card-body">
     
-      <div className="form-control">
+        <div className="form-control">
           <label className="label">
             <span className="label-text">Name</span>
           </label>
           <input type="text"  name="name" placeholder="enter your name" className="input input-bordered" required />
+        </div>
+
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Photo URL </span>
+          </label>
+          <input type="text"  name="photo" placeholder="photo url" className="input input-bordered" required />
         </div>
 
         <div className="form-control">
@@ -105,7 +125,8 @@ const Register = () => {
         </div>
 
         <div className="form-control mt-6">
-          <button className="btn btn-primary">Register</button>
+        <input  className="btn btn-primary" type="submit" value="SignUp" />
+
         </div>
       </form>
 
