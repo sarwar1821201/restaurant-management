@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
+import { Link } from 'react-router-dom';
 
 
 const Login = () => {
@@ -94,7 +95,7 @@ const Login = () => {
           <input disabled={disabled} className="btn btn-primary" type="submit" value="Login" />
         </div>
       </form>
-
+       <p className='ps-6'> <small> New To This Site ? <Link to='/register'> <button className='btn btn-primary' >Please Register </button> </Link>  </small>  </p>
     </div>
   </div>
 </div>
