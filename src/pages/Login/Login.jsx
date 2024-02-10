@@ -63,7 +63,9 @@ const Login = () => {
     }
 
     const handleValidateCaptcha =(e) => {
-        const user_captcha_value= captchaRef.current.value;
+      //  const user_captcha_value= captchaRef.current.value;
+      const user_captcha_value= e.target.value;
+
         if(validateCaptcha(user_captcha_value)){
             console.log('captcha mile geche')
            setDisabled(false)
@@ -110,8 +112,8 @@ const Login = () => {
           <LoadCanvasTemplate />
 
           </label>
-          <input type="text" ref={captchaRef} name='captcha' placeholder="type the text about captcha" className="input input-bordered" required />
-          <button onClick={handleValidateCaptcha} className="btn btn-outline btn-xs mt-2  ">Validate</button>
+          <input onBlur={handleValidateCaptcha} type="text"   name='captcha' placeholder="type the text about captcha" className="input input-bordered" required />
+          {/* <button  className="btn btn-outline btn-xs mt-2  ">Validate</button> */}
 
          
         </div>
