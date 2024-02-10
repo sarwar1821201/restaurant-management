@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
+import Swal from 'sweetalert2';
 
 
 const Register = () => {
@@ -38,14 +39,20 @@ const Register = () => {
       //  alert('congratulations!! Registration Successfully Completed')
 
         userUpdateProfile(name,photo)
-        // .then( ()=> {
-        //     console.log('user profle info updated')
-        // } )
+         .then( ()=> {
+             console.log('user profle info updated')
+             Swal.fire({
+              title: 'Success!',
+              text: 'Registration Successfully Completed',
+              icon: 'success',
+              confirmButtonText: 'Cool'
+            })
+         } )
 
-        // .catch ( error => {
-        //     console.log(error)
-        // } )
-                alert('congratulations!! Registration Successfully Completed')
+        .catch ( error => {
+            console.log(error)
+         } )
+               // alert('congratulations!! Registration Successfully Completed')
 
 
         setError('')
