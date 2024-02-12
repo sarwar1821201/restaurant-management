@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
 import { FaShoppingCart } from 'react-icons/fa';
+import useCart from '../../hooks/useCart';
 
 
 const Header = () => {
 
     const {user, logOut } = useContext (AuthContext);
+
+    const [cart] = useCart();
 
     const handleLogOut = () => {
         console.log(' logout kore ber hoye jan ')
@@ -44,7 +47,7 @@ const Header = () => {
         <li> <Link to ='/secret' >Secret</Link>  </li>
         <li> <Link to='/' > <button className="btn gap-2 ">
     <FaShoppingCart></FaShoppingCart>
-  <div className="badge badge-secondary">0</div>
+  <div className="badge badge-secondary"> { cart?.length || 1 }  </div>
 </button>
  </Link>  </li>
 

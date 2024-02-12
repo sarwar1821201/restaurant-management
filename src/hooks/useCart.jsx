@@ -14,7 +14,7 @@ import { AuthContext } from '../providers/AuthProvider';
 
         } ,
       })
-    return [cart, isPending]
+    return [cart,refetch]
 
   }
 
