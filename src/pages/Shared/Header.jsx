@@ -45,7 +45,7 @@ const Header = () => {
         <li> <Link to ='/menu' >Menu</Link>  </li>
         <li> <Link to ='/order/pizza' >Order Food </Link>  </li>
         <li> <Link to ='/secret' >Secret</Link>  </li>
-        <li> <Link to='/' > <button className="btn gap-2 ">
+        <li> <Link to='/dashboard/mycart' > <button className="btn gap-2 ">
     <FaShoppingCart></FaShoppingCart>
   <div className="badge badge-secondary"> { cart?.length || 1 }  </div>
 </button>
