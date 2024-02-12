@@ -2,9 +2,10 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import useCart from "../../../hooks/useCart";
 import { FaTrash } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const MyCart = () => {
-  const [cart] = useCart();
+  const [cart, refetch] = useCart();
   // console.log(cart)
   // const total= cart.reduce( (sum,item)=> item.price+ sum, 0   )
   let total = 0;
@@ -13,8 +14,38 @@ const MyCart = () => {
     total = total + item.price;
   }
 
+  const handleDelete = (item) => {
+   console.log(item, 'item ta delete kor' );
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch( `http://localhost:5000/carts/${item._id}` , {
+          method: "DELETE"
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              refetch();
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your item has been deleted.",
+                icon: "success",
+              });
+            }
+          });
+      }
+    });
+  };
+
   return (
-    <div>
+    <div className="w-full">
       <Helmet>
         <title> Our Rest || My Cart </title>
       </Helmet>
@@ -30,7 +61,7 @@ const MyCart = () => {
           {/* head */}
           <thead>
             <tr>
-              <th> #  </th>
+              <th> # </th>
               <th>Food</th>
               <th>Item Name</th>
               <th>Price</th>
@@ -38,15 +69,10 @@ const MyCart = () => {
             </tr>
           </thead>
           <tbody>
-
-            { cart.map ( (item,index) => <tr
-              key={item._id}
-            >
-              <td>
-               {index+1}
-              </td>
-              <td>
-                
+            {cart.map((item, index) => (
+              <tr key={item._id}>
+                <td>{index + 1}</td>
+                <td>
                   <div className="avatar">
                     <div className="mask mask-squircle w-12 h-12">
                       <img
@@ -55,26 +81,24 @@ const MyCart = () => {
                       />
                     </div>
                   </div>
+                </td>
 
-              </td>
+                <td>{item.name}</td>
 
-              <td>
-                {item.name}
-                 </td>
+                <td className="text-end">{item.price}</td>
 
-              <td className="text-end" >{item.price}</td>
-
-              <td>
-                <button className="btn btn-ghost btn-lg"> <FaTrash></FaTrash> </button>
-              </td>
-            </tr>  ) }
-
-            
-           
-           
-            
+                <td>
+                  <button
+                    onClick={() => handleDelete(item)}
+                    className="btn btn-ghost bg-red-600 text-white "
+                  >
+                    
+                    <FaTrash></FaTrash>
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
-          
         </table>
       </div>
     </div>
