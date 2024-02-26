@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
 
@@ -12,6 +12,7 @@ const Register = () => {
   const [error,setError] = useState('');
   const [success, setSuccess] = useState ('');
   const [show, setShow] = useState(false);
+  const navigate= useNavigate();
 
      const handleSignUp = (event) => {
       event.preventDefault();
@@ -40,13 +41,31 @@ const Register = () => {
 
         userUpdateProfile(name,photo)
          .then( ()=> {
-             console.log('user profle info updated')
-             Swal.fire({
-              title: 'Success!',
-              text: 'Registration Successfully Completed',
-              icon: 'success',
-              confirmButtonText: 'Cool'
-            })
+          const saveUser= {name: name, email:email }
+
+            fetch('http://localhost:5000/users', {
+               method: 'POST',
+               headers: {
+                'content-type': 'application/json'
+               },
+               body: JSON.stringify(saveUser)
+            }  )
+            .then( (res)=>res.json() )
+            .then(  (data)=>{
+                if(data.insertedId){
+
+                  console.log('user profle info updated')
+                  Swal.fire({
+                   title: 'Success!',
+                   text: 'Registration Successfully Completed',
+                   icon: 'success',
+                   confirmButtonText: 'Cool'
+                 })
+                 navigate('/')
+                  
+                }
+            } )
+        
          } )
 
         .catch ( error => {
@@ -63,6 +82,7 @@ const Register = () => {
        .catch( error =>{
            console.log(error)
            setError(error.message)
+           event.target.reset();
            setSuccess(' ')
        } )
  
