@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
+import SocialLogin from '../Shared/SocialLogin';
 
 
 const Register = () => {
@@ -13,6 +14,9 @@ const Register = () => {
   const [success, setSuccess] = useState ('');
   const [show, setShow] = useState(false);
   const navigate= useNavigate();
+  const location= useLocation();
+
+   const from= location.state?.from?.pathname || '/' ;
 
      const handleSignUp = (event) => {
       event.preventDefault();
@@ -61,7 +65,7 @@ const Register = () => {
                    icon: 'success',
                    confirmButtonText: 'Cool'
                  })
-                 navigate('/')
+                 navigate(from, {replace: true})
                   
                 }
             } )
@@ -158,7 +162,7 @@ const Register = () => {
       </form>
 
       <p className='ps-6'> <small> Have An Account ? <Link to='/login'> <button className='btn btn-primary' >Please Login </button> </Link>  </small>  </p>
-
+       <SocialLogin></SocialLogin>
     </div>
   </div>
 </div>
